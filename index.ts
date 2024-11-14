@@ -1,16 +1,20 @@
 import * as operations from "./operations";
 
-interface Terms {
+type Terms = {
   a: number;
   op: string;
   b: number;
-}
+};
 
 function parseTerms(stringArgv: string): Terms {
-  const expReg = /[+\-\*\/]/;
-  const signIndex = stringArgv.search(expReg);
-  const terms = stringArgv.split(expReg);
+  const regExp = /[+\-\*\/]/;
+
+  const signIndex = stringArgv.search(regExp);
+  const terms = stringArgv.split(regExp);
   const operator = stringArgv[signIndex];
+
+  console.log("stringArgv: ", stringArgv, typeof stringArgv);
+  console.log("signIndex: ", signIndex);
 
   const obj: Terms = {
     a: Number(terms[0]),
@@ -36,7 +40,7 @@ function executeOperation(parseObj: Terms): number | undefined {
   }
 }
 
-function main(): void {
+function main() {
   const parsedObj = parseTerms(process.argv[2]);
   const result = executeOperation(parsedObj);
   console.log(result);
